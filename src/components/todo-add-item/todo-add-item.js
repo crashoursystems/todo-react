@@ -1,17 +1,39 @@
-import React from "react";
+import React, {Component} from "react";
 import './todo-add-item.css';
 
-const TodoAddItem = ({onAdd}) => {
+export default class TodoAddItem extends Component{
+    state = {
+      label: ''
+    };
+    onLabelChange = (e) =>{
+        this.setState({
+            label: e.target.value
+        });
+    };
 
-    return (
-        <div className="TodoAddItem">
-            <button type="button"
-                    className="btn btn-outline-success mt-2 "
-            onClick={() => onAdd('Hello World')}>
-            Add todo item
-             </button>
-        </div>
-    );
-}
+    onSubmit = (e) =>{
+        e.preventDefault();
+        this.props.onAdd(this.state.label);
+        this.setState({
+            label: ''
+            }
+        )
+    };
+    render(){
+        return (
 
-export default TodoAddItem;
+            <form className="TodoAddItem"
+                onSubmit={this.onSubmit}>
+                <input type="text"
+                       className="form-control mt-2" placeholder="What needs to be "
+                       onChange={this.onLabelChange}
+                       value={this.state.label}
+                />
+                <input type="submit"
+                        className="btn btn-outline-success mt-2 "
+                        value="Add todo item" />
+            </form>
+        );
+    }
+
+};
