@@ -1,13 +1,14 @@
 import React from "react";
-import 'todo-add-item.css';
+import './todo-add-item.css';
 
-const TodoAddItem = () => {
+const TodoAddItem = ({onAdd}) => {
 
     return (
-        <div>
+        <div className="TodoAddItem">
             <button type="button"
-                    className="btn btn-success">
-
+                    className="btn btn-outline-success mt-2 "
+            onClick={() => onAdd('Hello World')}>
+            Add todo item
              </button>
         </div>
     );

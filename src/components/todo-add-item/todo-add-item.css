@@ -1,0 +1,9 @@
+.TodoAddItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TodoAddItem button{
+    width: 100%;
+}

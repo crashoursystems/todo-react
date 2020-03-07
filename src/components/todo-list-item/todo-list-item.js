@@ -1,33 +1,66 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import './todo-list-item.css';
 
-const TodoListItem = ({ label, important = false }) => {
+export default class TodoListItem extends Component{
 
-    const style = {
-        color: important ? 'steelblue' : 'black',
-        fontWeight: important ? 'bold' : 'normal'
+
+    state = {
+        done: false,
+        isImportant: false
+    };
+    //Обрабатывает клик
+    onLabelClick = () => {
+        this.setState(
+            (state) =>{
+                return {done: !state.done}
+            }
+        );
     };
 
-    return (
-        <span className="todo-list-item">
+    onButtonImportantClick = () => {
+        this.setState(
+            (state) =>{
+                return {isImportant: !state.isImportant}
+        });
+    };
+    //Передает компонент
+    render(){
+        const { label, onDeleted} = this.props;
+        const { done, isImportant } = this.state;
+
+        let ClassName = 'todo-list-item';
+
+        if(done){
+            ClassName += ' done';
+        }
+
+        if(isImportant){
+            ClassName += ' important';
+        }
+
+        return (
+            <span className={ClassName}>
       <span
           className="todo-list-item-label"
-          style={style}>
+            onClick={() => this.onLabelClick()}>
         {label}
       </span>
 
       <button type="button"
-              className="btn btn-outline-success btn-sm float-right">
+              className="btn btn-outline-success btn-sm float-right"
+              onClick={() => this.onButtonImportantClick()}>
         <i className="fa fa-exclamation" />
       </button>
 
       <button type="button"
-              className="btn btn-outline-danger btn-sm float-right">
+              className="btn btn-outline-danger btn-sm float-right"
+               onClick={() => onDeleted()} >
         <i className="fa fa-trash-o" />
       </button>
     </span>
-    );
-};
+        );
+    }
 
-export default TodoListItem;
+}
+
